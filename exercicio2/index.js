@@ -1,15 +1,32 @@
 const axios = require('axios').default;
 const jsdom = require("jsdom");
+const fs = require('fs');
 const { JSDOM } = jsdom;
 
-const fetch = async () => {
-    const { data } = await axios.get("https://g1.globo.com/sp/sao-paulo/noticia/2020/10/03/estado-de-sp-atinge-1-milhao-de-casos-confirmados-da-covid-19-media-diaria-de-mortes-mantem-tendencia-de-queda.ghtml")
-    const dom = new JSDOM(data);
-    console.log('Title: ' + getNewsTitle(dom));
-    console.log('\n\n')
-    console.log('Subtitle: '+ getNewsSubtitle(dom))
-    console.log('\n\n')
-    console.log('Date: '+ getNewsDate(dom))
+const link = "https://g1.globo.com/sp/sao-paulo/noticia/2020/10/03/estado-de-sp-atinge-1-milhao-de-casos-confirmados-da-covid-19-media-diaria-de-mortes-mantem-tendencia-de-queda.ghtml";
+const fileName = 'news.god'
+
+const fetchNews = async () => {
+    const dom = await getDom();
+    writeFile(dom)
+}
+
+const writeFile = (dom) => {
+    fs.writeFile(`./${fileName}`, getStringToSave(dom), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("Matéria salva com sucesso!");
+    }); 
+}
+
+const getDom = async () => { 
+    const { data } = await axios.get(link)
+    return new JSDOM(data);
+}
+
+const getStringToSave = (dom) => {
+    return `Título da matéria: ${getNewsTitle(dom)}\nResumo da matéria: ${getNewsSubtitle(dom)}\nData de publicação: ${getNewsDate(dom)}`
 }
 
 const getNewsTitle = (dom) => {
@@ -31,4 +48,4 @@ const performQuerySelector = (dom, query) => {
     return dom.window.document.querySelector(query).innerHTML
 }
 
-fetch()
+fetchNews()

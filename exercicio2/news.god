@@ -1,0 +1,3 @@
+Título da matéria: Estado de SP atinge 1 milhão de casos confirmados da Covid-19; média diária de mortes mantém tendência de queda
+Resumo da matéria: Nas últimas 24 horas foram registradas 180 novas mortes no estado e o total chegou a 36.136 óbitos em SP. A variação da média móvel de mortes em relação ao registrado há 14 dias é de -20%, o que para especialistas indica tendência de queda no estado de SP.
+Data de publicação:  03/10/2020 14h40 
